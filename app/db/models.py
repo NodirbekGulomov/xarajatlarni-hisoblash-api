@@ -1,7 +1,7 @@
 from datetime import date as datetime_date
 from decimal import Decimal
 
-from sqlalchemy import ForeignKey, Numeric, func
+from sqlalchemy import Date, ForeignKey, Numeric, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
@@ -29,7 +29,7 @@ class Expense(Base):
         Numeric(precision=10, scale=2), nullable=False
     )
     category: Mapped[str] = mapped_column(nullable=False)
-    date: Mapped[datetime_date] = mapped_column(server_default=func.now())
+    date: Mapped[datetime_date] = mapped_column(Date, server_default=func.date())
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
 
     user: Mapped["User"] = relationship(back_populates="expenses")

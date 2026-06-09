@@ -18,14 +18,14 @@ def create_expense(
     return expense_service.create_expense(data, current_user, db)
 
 
-@router.get("expenses", response_model=list[ExpenseResponse])
+@router.get("/expenses", response_model=list[ExpenseResponse])
 def get_all_expenses(
     current_user: CurrentUser = Depends(get_current_user), db=Depends(get_db)
 ):
     return expense_service.get_all_expenses_of_user(current_user, db)
 
 
-@router.put("expenses/{id}", response_model=ExpenseUpdate)
+@router.put("/expenses/{id}", response_model=ExpenseUpdate)
 def update_expense(
     id: int,
     data: ExpenseUpdate,
@@ -35,7 +35,7 @@ def update_expense(
     return expense_service.update_expense(id, data, current_user, db)
 
 
-@router.delete("expenses/{id}", status_code=204)
+@router.delete("/expenses/{id}", status_code=204)
 def delete_expense(
     id: int, current_user: CurrentUser = Depends(get_current_user), db=Depends(get_db)
 ):
