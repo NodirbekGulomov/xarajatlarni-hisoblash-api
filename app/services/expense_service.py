@@ -6,8 +6,8 @@ from app.db import Expense
 from app.schemas.expense_schemas import ExpenseSchema
 
 
-def create_expense(data: ExpenseSchema, user_id: int, db: Session):
-    data["user_id"] = user_id
+def create_expense(data: ExpenseSchema, id: int, db: Session):
+    data.user_id = id
     expense = Expense(**data.model_dump())
     db.add(expense)
     db.commit()

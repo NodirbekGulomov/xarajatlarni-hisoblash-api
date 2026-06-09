@@ -8,6 +8,7 @@ class ExpenseSchema(BaseModel):
     name: str
     amount: Decimal
     category: str
+    user_id: int
 
 
 class ExpenseResponse(BaseModel):

@@ -21,7 +21,7 @@ def create_user(data: RegisterSchema, db: Session):
     db_user = User(**data)
     db.add(db_user)
     db.commit()
-    access_token_data = {"user_id": db_user.id}
+    access_token_data = {"id": db_user.id}
     return {
         "access_token": create_access_token(access_token_data),
         "refresh_token": create_refresh_token(db_user.id),
@@ -30,12 +30,12 @@ def create_user(data: RegisterSchema, db: Session):
 
 def handle_login(data: LoginSchema, db: Session):
     user = db.execute(select(User).where(User.email == data.email)).scalar_one_or_none()
-    if user:
+    if user is None:
         raise HTTPException(status_code=401, detail="Email or password is not correct")
     if not verify_password(data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Email or password is not correct")
 
-    access_token_data = {"user_id": user.id}
+    access_token_data = {"id": user.id}
     return {
         "access_token": create_access_token(access_token_data),
         "refresh_token": create_refresh_token(user.id),
