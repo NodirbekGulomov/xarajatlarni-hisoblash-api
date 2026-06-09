@@ -11,6 +11,7 @@ class ExpenseSchema(BaseModel):
 
 
 class ExpenseResponse(BaseModel):
+    id: int
     name: str
     amount: Decimal
     category: str

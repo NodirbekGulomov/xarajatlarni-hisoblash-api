@@ -25,10 +25,10 @@ def update_expense(expense_id: int, data: ExpenseSchema, user_id: int, db: Sessi
     ).scalar_one_or_none()
 
     if expense is None:
-        raise HTTPException(status_code=404)
+        raise HTTPException(status_code=404, detail="Expense not found")
 
     if expense.user_id != user_id:
-        raise HTTPException(status_code=0)
+        raise HTTPException(status_code=404, detail="Expense not found")
 
     db_expense = Expense(**data.model_dump())
     db.add(db)
@@ -42,10 +42,10 @@ def delete_expense(expense_id, user_id: int, db: Session):
     ).scalar_one_or_none()
 
     if expense is None:
-        raise HTTPException(status_code=404)
+        raise HTTPException(status_code=404, detail="Expense not found")
 
     if expense.user_id != user_id:
-        raise HTTPException(status_code=0)
+        raise HTTPException(status_code=404, detail="Expense not found")
 
     db.execute(delete(Expense).where(Expense.id == expense_id))
     db.commit()

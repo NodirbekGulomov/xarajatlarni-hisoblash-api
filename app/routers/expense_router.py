@@ -25,7 +25,7 @@ def get_all_expenses(
     return expense_service.get_all_expenses_of_user(current_user, db)
 
 
-@router.put("expenses/{id}", response_model=ExpenseResponse)
+@router.put("expenses/{id}", response_model=ExpenseUpdate)
 def update_expense(
     id: int,
     data: ExpenseUpdate,
@@ -39,4 +39,5 @@ def update_expense(
 def delete_expense(
     id: int, current_user: CurrentUser = Depends(get_current_user), db=Depends(get_db)
 ):
-    return expense_service.delete_expense(id, current_user, db)
+    expense_service.delete_expense(id, current_user, db)
+    return {"message": "Expense deleted"}
