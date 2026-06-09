@@ -1,4 +1,5 @@
 from datetime import date
+from decimal import Decimal
 
 from sqlalchemy import ForeignKey, Numeric
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -24,7 +25,7 @@ class Expense(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
-    amount: Mapped[Numeric] = mapped_column(Numeric(precision=10, scale=2))
+    amount: Mapped[Decimal] = mapped_column(Numeric(precision=10, scale=2))
     category: Mapped[str]
     date: Mapped[date]
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
