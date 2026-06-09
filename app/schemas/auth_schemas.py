@@ -6,7 +6,7 @@ class CurrentUser(BaseModel):
 
 
 class RegisterSchema(BaseModel):
-    name: str
+    name: str | None = None
     email: str
     password: str
 

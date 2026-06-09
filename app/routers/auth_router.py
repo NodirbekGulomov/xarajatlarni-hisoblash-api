@@ -8,7 +8,7 @@ from app.schemas.auth_schemas import (
     LoginSchema,
     RegisterSchema,
 )
-from app.schemas.user_schemas import UserProfileSchema
+from app.schemas.user_schemas import UserProfileResponse
 from app.services import auth_service, user_service
 
 router = APIRouter()
@@ -24,7 +24,7 @@ def login(data: LoginSchema, db=Depends(get_db)):
     return auth_service.handle_login(data, db)
 
 
-@router.get("/users/me", response_model=UserProfileSchema)
+@router.get("/users/me", response_model=UserProfileResponse)
 def get_user_profile(
     current_user: CurrentUser = Depends(get_current_user), db=Depends(get_db)
 ):

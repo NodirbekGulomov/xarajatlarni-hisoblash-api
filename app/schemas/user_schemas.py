@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class UserProfileSchema(BaseModel):
+class UserProfileResponse(BaseModel):
     id: int
     name: str
     email: str
